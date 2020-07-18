@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uSc-Ei-rp2">
+                                <rect key="frame" x="142" y="204" width="130" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="130" id="Gkx-b5-cYe"/>
+                                    <constraint firstAttribute="height" constant="30" id="JQ5-Wk-h0c"/>
+                                </constraints>
+                                <state key="normal" title="Authorize GG"/>
+                                <connections>
+                                    <action selector="didSelecAuthorizeButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xbz-4L-wxf"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dub-Jy-1rV">
+                                <rect key="frame" x="155" y="272" width="104" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="m1I-7d-khB">
+                                <rect key="frame" x="132" y="533" width="150" height="4"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="4" id="Odv-if-Vke"/>
+                                    <constraint firstAttribute="width" constant="150" id="jPo-EA-K8T"/>
+                                </constraints>
+                            </progressView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0% - 0/0 files" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cH7-bF-XXQ">
+                                <rect key="frame" x="155.5" y="557" width="103" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NvI-Qh-tWm">
+                                <rect key="frame" x="149" y="423" width="116" height="30"/>
+                                <state key="normal" title="Start Sync Photo"/>
+                                <connections>
+                                    <action selector="didSelectStartSyncButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LSW-Hx-CZk"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="NvI-Qh-tWm" firstAttribute="top" secondItem="dub-Jy-1rV" secondAttribute="bottom" constant="130" id="0Xa-lP-ESM"/>
+                            <constraint firstItem="uSc-Ei-rp2" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="5BR-63-A35"/>
+                            <constraint firstItem="uSc-Ei-rp2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="160" id="6bE-gb-1og"/>
+                            <constraint firstItem="NvI-Qh-tWm" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="AOb-Dp-IvG"/>
+                            <constraint firstItem="m1I-7d-khB" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="JSG-eN-H6x"/>
+                            <constraint firstItem="cH7-bF-XXQ" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Uza-7H-lkN"/>
+                            <constraint firstItem="cH7-bF-XXQ" firstAttribute="top" secondItem="m1I-7d-khB" secondAttribute="bottom" constant="20" id="jqy-TD-aZG"/>
+                            <constraint firstItem="m1I-7d-khB" firstAttribute="centerX" secondItem="NvI-Qh-tWm" secondAttribute="centerX" id="mwf-Ju-TZJ"/>
+                            <constraint firstItem="dub-Jy-1rV" firstAttribute="top" secondItem="uSc-Ei-rp2" secondAttribute="bottom" constant="38" id="utA-1m-UZR"/>
+                            <constraint firstItem="m1I-7d-khB" firstAttribute="top" secondItem="NvI-Qh-tWm" secondAttribute="bottom" constant="80" id="xR4-11-ndo"/>
+                            <constraint firstItem="dub-Jy-1rV" firstAttribute="centerX" secondItem="uSc-Ei-rp2" secondAttribute="centerX" id="zza-E0-MUA"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="authButton" destination="uSc-Ei-rp2" id="igv-uu-nBm"/>
+                        <outlet property="authEmailLabel" destination="dub-Jy-1rV" id="rUh-4b-Jy5"/>
+                        <outlet property="progressLabel" destination="cH7-bF-XXQ" id="3nd-Al-phL"/>
+                        <outlet property="progressView" destination="m1I-7d-khB" id="tCN-kD-sGJ"/>
+                        <outlet property="syncButton" destination="NvI-Qh-tWm" id="W9Z-lU-b4z"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="138.61607142857142"/>
+        </scene>
+    </scenes>
+</document>
