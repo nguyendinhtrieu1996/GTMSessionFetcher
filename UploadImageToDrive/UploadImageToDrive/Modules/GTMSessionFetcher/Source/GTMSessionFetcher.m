@@ -913,6 +913,9 @@ static GTMSessionFetcherTestBlock GTM_NULLABLE_TYPE gGlobalTestBlock;
             self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
           }
         }
+          
+        NSLog(@"TRIEUND2> Expired backgroundTaskId: %lu", (unsigned long)bgTaskID);
+          
         [app endBackgroundTask:bgTaskID];
       }
     }];
@@ -921,6 +924,9 @@ static GTMSessionFetcherTestBlock GTM_NULLABLE_TYPE gGlobalTestBlock;
     }
   }
 #endif
+    
+    
+  NSLog(@"TRIEUND2> Start backgroundTaskId: %lu", (unsigned long)self.backgroundTaskIdentifier);
 
   if (!_initialRequestDate) {
     _initialRequestDate = [[NSDate alloc] init];

@@ -14,6 +14,7 @@
 #import "AppDelegate.h"
 #import "GTLRDriveQuery.h"
 #import "GTLRDriveObjects.h"
+#import "GTMSessionFetcherLogging.h"
 
 
 static NSString * const kClientId = @"18381047542-08tkk2u1hdprcpnv4211tgckodqbspd4.apps.googleusercontent.com";
@@ -21,7 +22,7 @@ static NSString * const kURLSchema = @"com.googleusercontent.apps.18381047542-08
 static NSString * const kGDriveApDataFolder = @"appDataFolder";
 
 static int const kMaxExecutingQueue = 3;
-static int const kTotalPhotoUpload = 400;
+static int const kTotalPhotoUpload = 10000;
 
 
 @interface ViewController ()
@@ -34,7 +35,9 @@ static int const kTotalPhotoUpload = 400;
 @property (nonatomic, assign)  int                                      totalPhotoUploadToDrive;
 @property (nonatomic, assign)  int                                      executingCount;
 
-@property (nonatomic, strong) NSURL                                  *filePath;
+@property (nonatomic, strong) NSString                                  *filePath;
+@property (nonatomic, assign) dispatch_queue_t                          executeQueue;
+@property (atomic, assign) BOOL isExprired;
 
 @end // @interface ViewController ()
 
@@ -48,6 +51,9 @@ static int const kTotalPhotoUpload = 400;
     self.service = [GTLRDriveService new];
     self.executingTicket = [NSMutableArray new];
     self.filePath = [self _imagePath];
+    self.executeQueue = dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0);
+    
+    [GTMSessionFetcher setLoggingEnabled:YES];
 }
 
 #pragma mark UI Actions
@@ -89,10 +95,30 @@ static int const kTotalPhotoUpload = 400;
     [self.syncButton setUserInteractionEnabled:NO];
     self.syncButton.backgroundColor = UIColor.lightGrayColor;
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    [self _executeOnConcurrentQueue];
+    [self _executeOnConcurrentQueue];
+    [self _executeOnConcurrentQueue];
+}
+
+#pragma mark - Upload photo
+
+- (void)_executeOnConcurrentQueue {
+    dispatch_async(self.executeQueue, ^{
+        UIApplication *application = UIApplication.sharedApplication;
+        __block  UIBackgroundTaskIdentifier identifier = [application beginBackgroundTaskWithName:@"com.trieund2.startExecuteOnConcurrenQueue"
+                                                                       expirationHandler:^{
+            if (identifier != UIBackgroundTaskInvalid) {
+                [application endBackgroundTask:identifier];
+                identifier = UIBackgroundTaskInvalid;
+            }
+        }];
+        
         [self _executeUploadPhoto];
-        [self _executeUploadPhoto];
-        [self _executeUploadPhoto];
+        
+        if (identifier != UIBackgroundTaskInvalid) {
+            [application endBackgroundTask:identifier];
+            identifier = UIBackgroundTaskInvalid;
+        }
     });
 }
 
@@ -103,7 +129,9 @@ static int const kTotalPhotoUpload = 400;
     
     self.executingCount += 1;
     self.totalPhotoUploadToDrive += 1;
-
+    
+    NSLog(@"TRIEUND2> Execute upload photo");
+    
     id<GTLRQueryProtocol> query = [self _buildGTLRQuery];
     
     [self.service executeQuery:query
@@ -116,7 +144,7 @@ static int const kTotalPhotoUpload = 400;
         dispatch_async(dispatch_get_main_queue(), ^{
             [self _updateProgress];
         });
-        [self _executeUploadPhoto];
+        [self _executeOnConcurrentQueue];
     }];
 }
 
@@ -149,10 +177,11 @@ static int const kTotalPhotoUpload = 400;
     gFile.name = NSUUID.UUID.UUIDString;
     gFile.spaces = @[kGDriveApDataFolder];
     
-    GTLRUploadParameters *uploadParams = [GTLRUploadParameters uploadParametersWithFileURL:self.filePath MIMEType:@""];
+    GTLRUploadParameters *uploadParams = [GTLRUploadParameters uploadParametersWithFileURL:[NSURL fileURLWithPath:self.filePath]
+                                                                                  MIMEType:@""];
     
     GTLRDriveQuery_FilesCreate *query = [GTLRDriveQuery_FilesCreate queryWithObject:gFile uploadParameters:uploadParams];
-    query.fields = @"id, name, mimeType";
+    query.fields = @"name, mimeType";
     
     return query;
 }
@@ -166,19 +195,27 @@ static int const kTotalPhotoUpload = 400;
                                kTotalPhotoUpload];
 }
 
-- (NSURL *)_imagePath {
-    NSArray *paths = [NSFileManager.defaultManager URLsForDirectory:NSDocumentDirectory
-                                                          inDomains:NSUserDomainMask];
-    NSURL *documentsDirectory = [paths objectAtIndex:0];
-    NSURL *saveImagePath = [documentsDirectory URLByAppendingPathComponent:@"saveImage.png"];
+- (NSString *)_imagePath {
+    NSString *saveImagePath = [self getDocumentDirectoryPath:@"saveImage.png"];
     
-    if (NO == [NSFileManager.defaultManager fileExistsAtPath:saveImagePath.absoluteString]) {
-        UIImage *image = [UIImage imageNamed:@"image_1"];
+    if (NO == [NSFileManager.defaultManager fileExistsAtPath:saveImagePath]) {
+        UIImage *image = [UIImage imageNamed:@"image"];
         NSData *data = UIImagePNGRepresentation(image);
-        [data writeToURL:saveImagePath atomically:YES];
+        [data writeToFile:saveImagePath atomically:YES];
     }
     
     return saveImagePath;
+}
+
+#pragma mark - Write file local
+
+-(NSString *)getDocumentDirectoryPath:(NSString *)Name
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,  NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *savedImagePath = [documentsDirectory stringByAppendingPathComponent:Name];
+    NSLog(@"savedImagePath: %@", savedImagePath);
+    return savedImagePath;
 }
 
 @end // @implementation ViewController

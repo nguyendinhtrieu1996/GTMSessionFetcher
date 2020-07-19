@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIButton       *syncButton;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressView;
 @property (weak, nonatomic) IBOutlet UILabel        *progressLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 @end // @interface ViewController
 
