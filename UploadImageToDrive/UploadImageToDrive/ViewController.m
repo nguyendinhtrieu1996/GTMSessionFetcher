@@ -37,7 +37,6 @@ static int const kTotalPhotoUpload = 10000;
 
 @property (nonatomic, strong) NSString                                  *filePath;
 @property (nonatomic, assign) dispatch_queue_t                          executeQueue;
-@property (atomic, assign) BOOL isExprired;
 
 @end // @interface ViewController ()
 
@@ -78,10 +77,12 @@ static int const kTotalPhotoUpload = 10000;
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     
     appDelegate.currentAuthorizationFlow
-    = [OIDAuthState authStateByPresentingAuthorizationRequest:request
-                                     presentingViewController:self
-                                                     callback:^(OIDAuthState * _Nullable authState,
-                                                                NSError * _Nullable error) {
+    = [OIDAuthState
+       authStateByPresentingAuthorizationRequest:request
+       presentingViewController:self
+       callback:^(OIDAuthState * _Nullable authState,
+                  NSError * _Nullable error) {
+        
         self.authState = authState;
         GTMAppAuthFetcherAuthorization *gAuth;
         gAuth = [[GTMAppAuthFetcherAuthorization alloc] initWithAuthState:authState];
@@ -175,13 +176,16 @@ static int const kTotalPhotoUpload = 10000;
 - (id<GTLRQueryProtocol>)_buildGTLRQuery {
     GTLRDrive_File *gFile = [GTLRDrive_File new];
     gFile.name = NSUUID.UUID.UUIDString;
-    gFile.spaces = @[kGDriveApDataFolder];
+    gFile.parents = @[kGDriveApDataFolder];
     
-    GTLRUploadParameters *uploadParams = [GTLRUploadParameters uploadParametersWithFileURL:[NSURL fileURLWithPath:self.filePath]
-                                                                                  MIMEType:@""];
+    GTLRUploadParameters *uploadParams = [GTLRUploadParameters
+                                          uploadParametersWithFileURL:[NSURL fileURLWithPath:self.filePath]
+                                          MIMEType:nil];
     
-    GTLRDriveQuery_FilesCreate *query = [GTLRDriveQuery_FilesCreate queryWithObject:gFile uploadParameters:uploadParams];
-    query.fields = @"name, mimeType";
+    GTLRDriveQuery_FilesCreate *query = [GTLRDriveQuery_FilesCreate
+                                         queryWithObject:gFile
+                                         uploadParameters:uploadParams];
+    query.fields = @"id, name";
     
     return query;
 }
@@ -196,25 +200,21 @@ static int const kTotalPhotoUpload = 10000;
 }
 
 - (NSString *)_imagePath {
-    NSString *saveImagePath = [self getDocumentDirectoryPath:@"saveImage.png"];
+    NSString *saveImagePath = [self getDocumentDirectoryPath:@"saveImage.jpg"];
     
     if (NO == [NSFileManager.defaultManager fileExistsAtPath:saveImagePath]) {
         UIImage *image = [UIImage imageNamed:@"image"];
-        NSData *data = UIImagePNGRepresentation(image);
+        NSData *data = UIImageJPEGRepresentation(image, 1.0f);
         [data writeToFile:saveImagePath atomically:YES];
     }
     
     return saveImagePath;
 }
 
-#pragma mark - Write file local
-
--(NSString *)getDocumentDirectoryPath:(NSString *)Name
-{
+- (NSString *)getDocumentDirectoryPath:(NSString *)Name {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,  NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     NSString *savedImagePath = [documentsDirectory stringByAppendingPathComponent:Name];
-    NSLog(@"savedImagePath: %@", savedImagePath);
     return savedImagePath;
 }
 

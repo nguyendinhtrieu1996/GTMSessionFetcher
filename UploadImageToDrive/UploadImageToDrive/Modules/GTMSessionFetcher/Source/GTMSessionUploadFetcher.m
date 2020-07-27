@@ -1283,6 +1283,9 @@ NSString *const kGTMSessionFetcherUploadLocationObtainedNotification =
         if (!didWriteFile) {
           chunkFetcher.bodyData = [chunkData copy];
         }
+        
+        NSLog(@"TRIEUND2> update next chunk with offset: %lld", offset);
+          
         [self beginChunkFetcher:chunkFetcher
                          offset:offset];
       });

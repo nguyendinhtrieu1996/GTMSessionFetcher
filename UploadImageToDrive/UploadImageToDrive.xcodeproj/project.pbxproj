@@ -70,6 +70,7 @@
 		2745A19924C2A80300BD017F /* GTMAppAuthFetcherAuthorization+Keychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2745A18824C2A80300BD017F /* GTMAppAuthFetcherAuthorization+Keychain.m */; };
 		2745A19A24C2A80300BD017F /* GTMOAuth2KeychainCompatibility.m in Sources */ = {isa = PBXBuildFile; fileRef = 2745A18B24C2A80300BD017F /* GTMOAuth2KeychainCompatibility.m */; };
 		2745A19B24C2A80300BD017F /* GTMAppAuthFetcherAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2745A18C24C2A80300BD017F /* GTMAppAuthFetcherAuthorization.m */; };
+		27EA035224CE83C60077A220 /* image_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 27EA035124CE83C60077A220 /* image_1.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -208,6 +209,7 @@
 		2745A18A24C2A80300BD017F /* GTMOAuth2KeychainCompatibility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMOAuth2KeychainCompatibility.h; sourceTree = "<group>"; };
 		2745A18B24C2A80300BD017F /* GTMOAuth2KeychainCompatibility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMOAuth2KeychainCompatibility.m; sourceTree = "<group>"; };
 		2745A18C24C2A80300BD017F /* GTMAppAuthFetcherAuthorization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMAppAuthFetcherAuthorization.m; sourceTree = "<group>"; };
+		27EA035124CE83C60077A220 /* image_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image_1.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +242,7 @@
 		272208E024C1EC5D0090E3CA /* UploadImageToDrive */ = {
 			isa = PBXGroup;
 			children = (
+				27EA035124CE83C60077A220 /* image_1.jpg */,
 				272208E124C1EC5D0090E3CA /* AppDelegate.h */,
 				272208E224C1EC5D0090E3CA /* AppDelegate.m */,
 				272208ED24C1EC5E0090E3CA /* Assets.xcassets */,
@@ -564,6 +567,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				272208F124C1EC5E0090E3CA /* LaunchScreen.storyboard in Resources */,
+				27EA035224CE83C60077A220 /* image_1.jpg in Resources */,
 				272208EE24C1EC5E0090E3CA /* Assets.xcassets in Resources */,
 				272208EC24C1EC5D0090E3CA /* Main.storyboard in Resources */,
 			);

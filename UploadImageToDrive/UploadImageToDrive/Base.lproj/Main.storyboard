@@ -52,13 +52,6 @@
                                     <action selector="didSelectStartSyncButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LSW-Hx-CZk"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fdB-gT-Gtn">
-                                <rect key="frame" x="132" y="548" width="150" height="150"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="6YD-BM-zH1"/>
-                                    <constraint firstAttribute="height" constant="150" id="WyT-Zg-c7c"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -66,10 +59,8 @@
                             <constraint firstItem="uSc-Ei-rp2" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="5BR-63-A35"/>
                             <constraint firstItem="uSc-Ei-rp2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="70" id="6bE-gb-1og"/>
                             <constraint firstItem="NvI-Qh-tWm" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="AOb-Dp-IvG"/>
-                            <constraint firstItem="fdB-gT-Gtn" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Byc-UT-cVP"/>
                             <constraint firstItem="m1I-7d-khB" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="JSG-eN-H6x"/>
                             <constraint firstItem="cH7-bF-XXQ" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Uza-7H-lkN"/>
-                            <constraint firstItem="fdB-gT-Gtn" firstAttribute="top" secondItem="cH7-bF-XXQ" secondAttribute="bottom" constant="60" id="Vcq-bh-PRi"/>
                             <constraint firstItem="cH7-bF-XXQ" firstAttribute="top" secondItem="m1I-7d-khB" secondAttribute="bottom" constant="20" id="jqy-TD-aZG"/>
                             <constraint firstItem="m1I-7d-khB" firstAttribute="centerX" secondItem="NvI-Qh-tWm" secondAttribute="centerX" id="mwf-Ju-TZJ"/>
                             <constraint firstItem="dub-Jy-1rV" firstAttribute="top" secondItem="uSc-Ei-rp2" secondAttribute="bottom" constant="38" id="utA-1m-UZR"/>
@@ -81,7 +72,6 @@
                     <connections>
                         <outlet property="authButton" destination="uSc-Ei-rp2" id="igv-uu-nBm"/>
                         <outlet property="authEmailLabel" destination="dub-Jy-1rV" id="rUh-4b-Jy5"/>
-                        <outlet property="imageView" destination="fdB-gT-Gtn" id="B7f-0B-G4S"/>
                         <outlet property="progressLabel" destination="cH7-bF-XXQ" id="3nd-Al-phL"/>
                         <outlet property="progressView" destination="m1I-7d-khB" id="tCN-kD-sGJ"/>
                         <outlet property="syncButton" destination="NvI-Qh-tWm" id="W9Z-lU-b4z"/>

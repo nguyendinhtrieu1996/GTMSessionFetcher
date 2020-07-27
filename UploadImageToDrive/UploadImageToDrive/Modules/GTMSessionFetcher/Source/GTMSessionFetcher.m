@@ -923,10 +923,9 @@ static GTMSessionFetcherTestBlock GTM_NULLABLE_TYPE gGlobalTestBlock;
       self.backgroundTaskIdentifier = bgTaskID;
     }
   }
+    
+   NSLog(@"TRIEUND2> Start backgroundTaskId: %lu", (unsigned long)self.backgroundTaskIdentifier);
 #endif
-    
-    
-  NSLog(@"TRIEUND2> Start backgroundTaskId: %lu", (unsigned long)self.backgroundTaskIdentifier);
 
   if (!_initialRequestDate) {
     _initialRequestDate = [[NSDate alloc] init];
